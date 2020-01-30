@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Scrollama: Sticky Side Example">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel='stylesheet' href='./style.css'>
+	<style>
+		#scrolly {
+			position: relative;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			background-color: #f3f3f3;
+			padding: 1rem;
+		}
+
+		#scrolly>* {
+			-webkit-box-flex: 1;
+			-ms-flex: 1;
+			/* flex: 1; */
+		}
+
+
+		article {
+			position: relative;
+			padding: 0 1rem auto;
+			left: 20%;
+			max-width: 600px;
+		}
+
+		figure {
+			position: -webkit-sticky;
+			position: sticky;
+			max-width: 600px;
+			margin: 0;
+			-webkit-transform: translate3d(0, 0, 0);
+			-moz-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+			background-color: #B87333;
+			z-index: 0;
+		}
+
+		figure p {
+			text-align: center;
+			padding: 0rem;
+			position: relative;
+			top: 50%;
+			left: 50%;
+			-moz-transform: translate(-50%, -50%);
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			font-size: 2rem;
+			font-weight: 900;
+			color: #fff;
+		}
+		.decade-wrapper{
+			height:12%;	
+		}
+		
+
+		.step {
+			margin: 0 auto 2rem auto;
+			background-color: #3b3b3b;
+			color: #fff;
+		}
+
+		.step.last-child {
+			margin-bottom: 0;
+		}
+
+		.step.is-active {
+			background-color: goldenrod;
+			color: #3b3b3b;
+		}
+
+		.step p {
+			position: relative;
+			top:30%;
+			text-align: left;
+			padding: 1rem;
+			font-size: 1rem;
+		}
+	</style>
+
+</head>
+
+<body>
+	<main>
+
+		<!--
+		<nav>
+			<a href='https://github.com/russellgoldenberg/scrollama'>scrollama.js</a>
+			<div class='nav__examples'>
+				<p>Examples:</p>
+				<a href='https://russellgoldenberg.github.io/scrollama/basic'>Basic</a>
+				<a href='https://russellgoldenberg.github.io/scrollama/progress'>Progress</a>
+				<a href='https://russellgoldenberg.github.io/scrollama/sticky-side'>Sticky Side</a>
+				<a href='https://russellgoldenberg.github.io/scrollama/sticky-overlay'>Sticky Overlay</a>
+			</div>
+		</nav>
+		
+		<section id='intro'>
+			<h1 class='intro__hed'>Sticky Overlay Example</h1>
+			<p class='intro__dek'>
+				Start scrolling to see how it works.
+			</p>
+		</section>
+		-->
+		<style>*{-webkit-box-sizing:border-box;box-sizing:border-box}a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section{display:block}a img{border:none}blockquote{quotes:none}blockquote:after,blockquote:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}caption,td,th{text-align:left;font-weight:400;vertical-align:middle}.hide-accessible{width:1px;height:1px;overflow:hidden;position:absolute}.hide-invisible{visibility:hidden}.hide-display{display:none}.skip-to-main{border:none;width:1px;height:1px;overflow:hidden;position:absolute}.skip-to-main:focus{width:auto;height:auto;background-color:#f4f4f4;padding:.5em;z-index:1001}.prose{max-width:40rem;margin:0 auto;padding:0 1rem}.prose__hed{font-weight:700}.media-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkRDMDBGQ0Y5NEI4NjExRTM5RTg2QTY1RTUyQjIxNEQyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkRDMDBGQ0ZBNEI4NjExRTM5RTg2QTY1RTUyQjIxNEQyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6REMwMEZDRjc0Qjg2MTFFMzlFODZBNjVFNTJCMjE0RDIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6REMwMEZDRjg0Qjg2MTFFMzlFODZBNjVFNTJCMjE0RDIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6C0EmkAAAAGElEQVR42mJiYGD4DwQMTECCEchhAAgwAEcGBv9dngKPAAAAAElFTkSuQmCC)}.graphic__hed{font-weight:500}.graphic__dek{margin:0;margin-bottom:1.5rem}.graphic__chart{width:100%}.graphic__key{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-bottom:.5rem;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.graphic__key li{padding:0;margin-left:.75em;letter-spacing:.05em;text-transform:uppercase;font-weight:700;line-height:1}.graphic__key li:before{content:'';display:inline-block;width:.8em;height:.8em;background-color:#282828;margin-right:.25em}.tk-national{font-family:Helvetica,Arial,sans-serif}.loaded-national .tk-national{font-family:'National 2 Narrow Web',Helvetica,Arial,sans-serif}.tk-tiempos{font-family:Georgia,Times,serif}.loaded-tiempos .tk-tiempos{font-family:'Tiempos Text Web',Georgia,Times,serif}.tk-atlas{font-family:Helvetica,Arial,sans-serif}.loaded-atlas .tk-atlas{font-family:'Atlas Grotesk Web',Helvetica,Arial,sans-serif}.xxx-small{font-size:10px;line-height:1.5}.xx-small{font-size:11px;line-height:1.5}.x-small{font-size:12px;line-height:1.5}.small{font-size:14px;line-height:1.5}.root{font-size:16px;line-height:1.7}.medium{font-size:17px;line-height:1.7}.large{font-size:24px;line-height:1.5}.x-large{font-size:32px;line-height:1.5}.xx-large{font-size:40px;line-height:1.2}.xxx-large{font-size:48px;line-height:1.2}.xxxx-large{font-size:64px;line-height:1.2}body{-webkit-font-feature-settings:'kern' 1,'onum' 0,'liga' 0,'tnum' 1;font-feature-settings:'kern' 1,'onum' 0,'liga' 0,'tnum' 1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;background-color:#fff;color:#282828;font-size:16px}h1{font-size:40px;line-height:1.2;margin-top:1.5rem}h2{font-size:32px;line-height:1.5;margin-top:1.5rem}h3{font-size:24px;line-height:1.5;margin-top:1.5rem}h4{font-size:17px;line-height:1.7;margin-top:1.5rem}h5{font-size:16px;line-height:1.7;margin-top:1.5rem}h6{font-size:14px;line-height:1.5;margin-top:1.5rem}p{margin:1.5rem 0;font-size:16px;line-height:1.7}a{text-decoration:none;border-bottom:1px solid #282828;color:#282828}a:hover,a:visited{color:#282828}b,strong{font-weight:700}em,i{font-style:italic}ul{list-style-type:none}li{font-size:16px}img,video{display:block;width:100%}button{cursor:pointer;border:none;outline:0;margin:0;padding:0;font-size:1rem;font-size:16px}sub,sup{font-size:.75rem;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}.conclusion{padding:4rem 1rem 1.5rem 1rem;margin:0 auto}.conclusion .prose{font-family:'Tiempos Text Web';max-width:40rem;margin:0 auto;padding:0 1rem}header{z-index:1000;position:absolute;top:0;left:0;width:100%;background-color:#fff}header a.logo{display:block;border:none;max-width:9rem;margin:1rem auto}header a.logo svg{fill:#282828;display:block;width:100%}header.is-sticky{position:fixed;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);background-color:#fff;-webkit-box-shadow:0 0 7px 1px #c9c9c9;box-shadow:0 0 7px 1px #c9c9c9}header.is-sticky a.logo{margin:0 auto}header.is-sticky .header__toggle{position:fixed;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);top:0;right:0;padding:.75rem;cursor:pointer;line-height:1;z-index:1000}header.is-sticky .header__toggle svg{stroke:#282828}header.is-sticky .header__toggle span:first-of-type{display:block}header.is-sticky .header__toggle span:last-of-type{display:none}header.is-sticky .header__toggle.is-visible span:first-of-type{display:none}header.is-sticky .header__toggle.is-visible span:last-of-type{display:block}header.is-sticky .header__toggle.is-visible span svg{stroke:#f4f4f4}header.is-sticky .header__menu{position:fixed;top:0;right:0;-webkit-transform:translateX(100%);-ms-transform:translateX(100%);transform:translateX(100%);height:100vh;width:100%;max-width:30rem;padding:1rem 1.5rem;background-color:#282828;color:#f4f4f4;z-index:1000;-webkit-transition:-webkit-transform .2s ease-in-out;transition:-webkit-transform .2s ease-in-out;-o-transition:transform .2s ease-in-out;transition:transform .2s ease-in-out;transition:transform .2s ease-in-out,-webkit-transform .2s ease-in-out}header.is-sticky .header__menu.is-visible{-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0)}header.is-sticky .header__menu a{color:#f4f4f4;border-bottom:1px solid #f4f4f4}header.is-sticky .header__menu a:hover{color:#c9c9c9}header.is-sticky .header__menu .menu__links li{margin-bottom:.5rem;font-size:24px}header.is-sticky .header__menu .menu__patreon a{font-weight:600;color:#282828;background-color:#daa520;padding:.25em .5em;border-radius:4px;border:none;border-bottom:none;font-size:.8em;text-transform:uppercase;margin-left:.5em}header.is-sticky .header__menu .menu__patreon a:hover{background-color:rgba(218,165,32,.75);color:#282828}header.is-sticky.is-dark{background-color:#282828;-webkit-box-shadow:0 0 7px 1px #5b5b5b;box-shadow:0 0 7px 1px #5b5b5b}header.is-sticky.is-dark svg{fill:#f4f4f4}header.is-sticky.is-dark .header__menu{background-color:#fff;color:#282828}header.is-sticky.is-dark a{color:#282828;border-bottom:1px solid #282828}header.is-sticky.is-dark a:hover{color:#5b5b5b}header.is-sticky.is-dark .header__toggle svg{stroke:#f4f4f4}header.is-sticky.is-dark .header__toggle.is-visible span svg{stroke:#282828}.hero{margin:0;padding-top:3rem;width:95%;margin:0 auto;max-width:1000px}.hero__img{width:100%}.intro{margin:0 auto;padding:0 1rem 1.5rem 1rem}.intro .hed-block{max-width:40rem;margin:0 auto;padding:0 .5rem}.intro__hed{max-width:50rem;margin:0 auto;font-weight:400;text-align:center;font-size:40px;line-height:1.2}.intro .hedA{font-size:1.25rem;padding:0 0 .5rem 0}.intro .hedB{font-weight:900;line-height:1;padding:0;border-top:1px solid #282828;border-bottom:1px solid #282828;font-size:3.5rem;text-transform:uppercase}.intro .hedC{font-size:1.25rem;padding:.5rem 2rem 0 2rem}.intro__byline{max-width:40rem;margin:0 auto;padding:5rem 1rem 1.5rem 1rem;text-align:center;font-size:14px;line-height:1.5}.intro__dek{max-width:40rem;margin:0 auto;padding:2.5rem 0 0 0;text-align:center;font-size:17px;line-height:1.7;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;font-weight:500;color:#a39a8d}.intro__dek p{margin:0 0 .5rem 0}.intro__dek .logo{width:200px;margin:0 auto;padding:0}.intro__dek .logo svg{width:100%}.intro__dek .pudding-logo{width:140px}.intro__dek .pudding-logo svg{width:100%}.intro__dek .prose{max-width:40rem;margin:0 auto;padding:0 1rem}.intro .tease-link{max-width:40rem;position:relative;margin:0 auto;padding:0 1rem}.intro .tease-link:before{position:absolute;width:3rem;color:#70675a;content:'•••';font-size:10px;letter-spacing:4px;left:50%}.intro .tease-link p{font-family:'National 2 Narrow Web';font-weight:500;font-size:17px;line-height:1.7;color:#70675a;padding:2rem 0}.intro .tease-link a{color:#70675a;font-weight:700}.intro .tease-link a:hover{color:#282828}.method{margin:0 auto;padding:1rem 1rem 6rem 1rem}.method__title{max-width:40rem;margin:0 auto;padding:1.5rem 1rem 0 1rem;text-align:center;font-weight:700;font-family:'National 2 Narrow Web';position:relative}.method__title:before{position:absolute;width:3rem;color:#70675a;content:'•••';font-size:10px;letter-spacing:4px;left:calc(50% - 1.5rem);top:-1rem}.method__copy{font-family:'National 2 Narrow Web';font-weight:500;max-width:40rem;margin:0 auto;padding:0 1rem;font-size:14px;line-height:1.5}.sidebar{width:calc(100% - 4.7rem);display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-item-align:start;align-self:flex-start;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;padding:0 2rem 0 1rem;margin-left:0;position:fixed;top:3rem;-webkit-box-flex:0;-ms-flex-positive:0;flex-grow:0;right:0;-webkit-transform:translateX(100%);-ms-transform:translateX(100%);transform:translateX(100%);height:100vh;background-color:#f7f2ea;border-left:1px solid #282828;-webkit-transition:-webkit-transform .4s ease-in-out;transition:-webkit-transform .4s ease-in-out;-o-transition:transform .4s ease-in-out;transition:transform .4s ease-in-out;transition:transform .4s ease-in-out,-webkit-transform .4s ease-in-out}.sidebar.is-visible{-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);-webkit-transition:-webkit-transform .4s ease-in-out;transition:-webkit-transform .4s ease-in-out;-o-transition:transform .4s ease-in-out;transition:transform .4s ease-in-out;transition:transform .4s ease-in-out,-webkit-transform .4s ease-in-out}.sidebar .drawer{cursor:pointer;position:relative;background:rgba(40,40,40,.95);height:2.5rem;width:2.5rem;margin:0;left:-3.5rem;top:1rem;border-radius:.5rem 0 0 .5rem;-webkit-transform:translateX(100%);-ms-transform:translateX(100%);transform:translateX(100%);-webkit-transition:-webkit-transform .4s ease-in-out;transition:-webkit-transform .4s ease-in-out;-o-transition:transform .4s ease-in-out;transition:transform .4s ease-in-out;transition:transform .4s ease-in-out,-webkit-transform .4s ease-in-out}.sidebar .drawer.is-visible{-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);-webkit-transition:-webkit-transform .4s ease-in-out;transition:-webkit-transform .4s ease-in-out;-o-transition:transform .4s ease-in-out;transition:transform .4s ease-in-out;transition:transform .4s ease-in-out,-webkit-transform .4s ease-in-out}.sidebar .drawer .drawer__toggle{position:relative;top:.45rem;left:.45rem}.sidebar .drawer .drawer__toggle svg{stroke:#f7f2ea}.sidebar .drawer .drawer__toggle span:first-of-type{display:block}.sidebar .drawer .drawer__toggle span:last-of-type{display:none}.sidebar .drawer .drawer__toggle.is-visible span:first-of-type{display:none}.sidebar .drawer .drawer__toggle.is-visible span:last-of-type{display:block}.sidebar .mentions{margin:0;line-height:1.5}.sidebar .mentions span{font-family:'National 2 Narrow Web';font-weight:700;font-size:24px;line-height:1}.sidebar .mentions .mentioned-span{color:#f52812}.sidebar .headline-wrapper .year-example{font-weight:800}.sidebar .headline-wrapper .headline{display:-webkit-box;display:-ms-flexbox;display:flex;border-bottom:1px solid}.sidebar .headline-wrapper .headline .hed-num{font-size:16px;color:#f52812;font-weight:700;font-family:'National 2 Narrow Web';vertical-align:baseline;margin-top:.8rem}.sidebar .headline-wrapper .headline .hed-text{font-size:14px;line-height:1.4;vertical-align:baseline;padding-left:.75rem;color:#70675a;cursor:pointer;margin:1rem 0}.sidebar .headline-wrapper .headline .hed-text b{font-weight:700;font-size:16px;font-family:'National 2 Narrow Web';text-transform:uppercase;color:#282828;text-decoration:underline}.sidebar .chart-dek{font-family:'National 2 Narrow Web';font-size:14px;font-weight:700;margin:1rem 0 .5rem 0}.sidebar .chart-wrapper{width:100%;height:180px}.sidebar .chart-wrapper .domain,.sidebar .chart-wrapper .tick line{display:none}.sidebar .chart-wrapper .tick text{font-family:'National 2 Narrow Web';font-weight:500;font-size:12px}.sidebar .chart-wrapper .g-baseline line{display:inline-block}.sidebar .chart-wrapper .line{fill:none;stroke:#000;stroke-width:2;display:inline-block}.sidebar .chart-wrapper .area{display:inline-block}.sidebar .chart-wrapper .overlay{fill:none;pointer-events:all;cursor:pointer}.sidebar .chart-wrapper circle{fill:#f52812;stroke:#f7f2ea;stroke-width:2}.sidebar .chart-wrapper .tooltip-bg{fill:#f7f2ea!important;stroke:#f7f2ea!important;stroke-width:5!important}.sidebar .chart-wrapper .tooltip-text{font-family:'National 2 Narrow Web';font-weight:700;fill:#282828;stroke-width:0}body{background-color:#f7f2ea;overflow-x:hidden}#decades{width:100%;border-top:1px solid #282828;border-bottom:1px solid #282828;padding:3rem 0;position:relative;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-chunk{width:calc(100% - 4.25rem);position:static;-ms-flex-item-align:start;align-self:flex-start;top:0;right:0;margin:-1.5rem 0 0 0;padding-right:2rem}.middle-chunk .wordcloud-wrapper{border-left:1px solid;width:100%;padding:0 0 0 1rem}.middle-chunk .wordcloud-wrapper .decade-title{text-align:center;font-family:'National 2 Narrow Web',Helvetica,Arial,sans-serif;font-weight:700;font-size:32px;line-height:1.5}.middle-chunk .wordcloud-wrapper .decade-title:after{content:'•••';font-size:10px;letter-spacing:4px;position:relative;bottom:.5rem;left:.5rem}.middle-chunk .wordcloud-wrapper .decade-title:before{content:'•••';font-size:10px;letter-spacing:4px;position:relative;bottom:.5rem;left:-.5rem}.middle-chunk .wordcloud-wrapper .decade-text{line-height:1.7}.middle-chunk .wordcloud-wrapper .decade-text span{font-weight:700;font-family:'National 2 Narrow Web';text-transform:uppercase;color:#282828;text-decoration:underline}.middle-chunk .wordcloud-wrapper .word-cloud .clickedWord{fill:#282828;font-family:'National 2 Narrow Web';font-weight:700;text-transform:uppercase;pointer-events:none}.middle-chunk .wordcloud-wrapper .word-cloud text{font-family:'Tiempos Text Web';fill:#a39a8d;cursor:pointer}.middle-chunk .wordcloud-wrapper .word-cloud text:hover{fill:#70675a}.year-nav{width:3.75rem;top:5rem;left:0;text-align:center;position:-webkit-sticky;position:sticky;-ms-flex-item-align:start;align-self:flex-start;margin:0 1rem 0 .5rem;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.year-nav .decade-wrapper{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.year-nav .decade-wrapper .decade-height{height:1.2rem}.year-nav .decade-wrapper .decade-height .plain{font-weight:500}.year-nav .decade-wrapper .decade-height .decade{cursor:pointer;margin:0;font-weight:500;font-size:14px}.year-nav .decade-wrapper .decade-height .current{font-weight:700!important;font-size:20px;margin-top:-.5rem!important}.year-nav .decade-wrapper .dots{-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg);margin:.5rem}.year-nav .decade-wrapper .dots:after{content:'•';font-size:8px;letter-spacing:2px;position:absolute;bottom:-.5rem;left:1.1rem}@media only screen and (min-width:25em){.intro .hed-block{padding:0 1rem}.intro .hedA{font-size:1.5rem;padding:0 0 .5rem 0}.intro .hedB{font-size:4.45rem}.intro .hedC{font-size:1.5rem;padding:.5rem 2rem 0 2rem}}@media only screen and (min-width:30em){body{font-size:17px}p{font-size:17px;line-height:1.7}li{font-size:17px}button{font-size:17px}header.is-sticky .header__menu{border-left:1px solid #5b5b5b}header.is-sticky .header__menu .menu__links li{font-size:32px}header.is-sticky.is-dark .header__menu{border-left:1px solid #c9c9c9}.intro__hed{font-size:48px;line-height:1.2}.intro .hedA{font-size:1.9rem;padding:0 0 .5rem 0}.intro .hedB{font-size:5rem}.intro .hedC{padding:.5rem 3rem 0 3rem;font-size:1.7rem}}@media only screen and (min-width:35em){.intro .hedA{font-size:2.55rem;padding:0 0 .5rem 0}.intro .hedB{font-size:6.5rem}.intro .hedC{padding:.5rem 0 0 0;font-size:1.45rem}.intro__dek{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.intro__dek p{margin:1.5rem 0 0 0}.intro__dek .logo{margin:0;padding:1.75rem 0 0 .5rem}.sidebar{width:calc(100% - 6.35rem)}.year-nav{width:4.5rem;margin:0 2rem 0 .5rem}.year-nav .decade-wrapper .decade-height{height:2.5rem}.year-nav .decade-wrapper .decade-height .decade{font-size:16px}.year-nav .decade-wrapper .decade-height .decade:hover{font-weight:700;cursor:pointer}.year-nav .decade-wrapper .decade-height .current{font-size:24px}.year-nav .decade-wrapper .dots{margin:1rem 0}.year-nav .decade-wrapper .dots::after{content:'•••';font-size:10px;letter-spacing:4px;bottom:-.5rem;left:.8rem}}@media only screen and (min-width:45em){.intro .hedA{font-size:3.2rem;padding:0 0 .75rem 0}.intro .hedB{font-size:8.1rem}.intro .hedC{padding:.5rem 0 0 0;font-size:1.82rem}}@media only screen and (min-width:50em){.intro__hed{font-size:64px;line-height:1.2}.sidebar{width:calc(100% - 6.85rem)}}@media only screen and (min-width:60em){.intro .hed-block{max-width:none}.intro .hedA{padding:0 0 1rem 0;font-size:4.2rem}.intro .hedB{font-size:10.65rem}.intro .hedC{font-size:2.375rem;padding:.5rem 0 0 0}.sidebar{position:-webkit-sticky;position:sticky;top:5rem;right:0;width:20rem;margin-left:2rem;-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);border-left:0}.sidebar .drawer{display:none;pointer-events:none}.middle-chunk{margin:-1.5rem auto 0 auto;position:relative;width:50%;max-width:40rem;padding-right:0}}@media only screen and (min-width:65em){.middle-chunk{width:100%}}</style>
+		<section id='scrolly'>
+			
+			<figure>
+				<div class='decade-wrapper'>
+					<p id='syc1' style='font-size: 5px;font-weight:200;' class='decade decade-tk-national'>1900s</p>
+					<p style='font-size: 2px'>.</br>.</br>.</br></p>
+				</div>
+
+				<div class='decade-wrapper'>
+					<p id='syc2' style='font-size: 5px;font-weight:700;' class='decade decade-tk-national'>1910s</p>
+					<p style='font-size: 2px'>.</br>.</br>.</br></p>
+				</div>
+
+				<div class='decade-wrapper'>
+						<p id='syc3' style='font-size: 5px;font-weight:700;' class='decade decade-tk-national'>1920s</p>
+						<p style='font-size: 2px'>.</br>.</br>.</br></p>
+				</div>
+
+				<div class='decade-wrapper'>
+					
+						<p id='syc4' style='font-size: 5px;font-weight:700;' class='decade decade-tk-national'>1930s</p>
+					
+						
+							<p style='font-size: 2px'>.</br>.</br>.</br></p>
+						
+				</div>
+
+				<div class='decade-wrapper'>
+					
+						<p id='syc5' style='font-size: 5px;font-weight:700;' class='decade decade-tk-national'>1940s</p>
+					
+							<p style='font-size: 2px'>.</br>.</br>.</br></p>
+						</div>
+				</div>
+
+				<div class='decade-wrapper'>
+					
+						<p id='syc6' style='font-size: 5px;font-weight:700;' class='decade decade-tk-national'>1950s</p>
+					
+							<p style='font-size: 2px'>.</br>.</br>.</br></p>
+						</div>
+				</div>
+
+				<div class='decade-wrapper'>
+					
+						<p id='syc7' style='font-size: 5px;font-weight:700;' class='decade decade-tk-national'>1960s</p>
+					
+							<p style='font-size: 2px'></p>
+						</div>
+				</div>
+
+			</figure>
+
+			<article>
+				<div class='step' data-step='1'>
+					<p>《人民日报》第一次报道有关出入境的新闻——国务院全体会议举行第一四一次会议上通过了“外国人入境出境过境居留旅行管理条例”。
+					</p>
+				</div>
+				<div class='step' data-step='2'>
+					<p>29个城市首先对外国人开放，主要为北京市等直辖市以及各省会城市。外国人去这些城市不再需要办理旅行证，不需要事先通知。
+					</p>
+				</div>
+				<div class='step' data-step='3'>
+					<p>十一月人大常委会十三次会议听取并通过了《中华人民共和国外国人入境出境管理法》。
+					</p>
+				</div>
+				<div class='step' data-step='4'>
+					<p>我国已有92％的县市允许外国人进入。
+					</p>
+				</div>
+				<div class='step' data-step='5'>
+					<p>《中华人民共和国出境入境管理法》由中华人民共和国第十一届全国人民代表大会常务委员会第二十七次会议通过。自２０１３年７月１日起施行。
+					</p>
+				</div>
+				<div class='step' data-step='6'>
+					<p>而Roi Pooling层则利用proposals从feature maps中提取proposal feature送入后续全连接和softmax网络作classification（即分类proposal到底是什么object）。</p>
+				</div>
+				<div class='step' data-step='7'>
+					<p>而Roi Pooling层则利用proposals从feature maps中提取proposal feature送入后续全连接和softmax网络作classification（即分类proposal到底是什么object）。</p>
+				</div>
+			</article>
+		</section>
+	</main>
+
+	<!-- <div class='debug'></div> -->
+	<script src='https://unpkg.com/d3@5.9.1/dist/d3.min.js'></script>
+	<script src='https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js'></script>
+	<script src='./stickyfill.min.js'></script>
+	<script src='./scrollama.min.js'></script>
+	<script>
+		// using d3 for convenience
+		var dic = new Array()
+		var main = d3.select('main')
+		var scrolly = main.select('#scrolly');
+		var figure = scrolly.select('figure');
+		var article = scrolly.select('article');
+		var step = article.selectAll('.step');
+		dic[0] = syc1
+		dic[1] = syc2
+		dic[2] = syc3
+		dic[3] = syc4
+		dic[4] = syc5
+		dic[5] = syc6
+		dic[6] = syc7
+		// initialize the scrollama
+		var scroller = scrollama();
+
+		// generic window resize listener event
+		function handleResize() {
+			// 1. update height of step elements
+			var stepH = Math.floor(window.innerHeight * 0.5);
+			step.style('height', stepH + 'px');
+
+			var figureHeight = window.innerHeight 
+			var figureMarginTop = (window.innerHeight - figureHeight) 
+
+			figure
+				.style('height', figureHeight + 'px')
+				.style('top', figureMarginTop + 'px');
+
+
+			// 3. tell scrollama to update new element dimensions
+			scroller.resize();
+		}
+
+		// scrollama event handlers
+		function handleStepEnter(response) {
+			console.log(response)
+			// response = { element, direction, index }
+
+			// add color to current step only
+			step.classed('is-active', function (d, i) {
+				return i === response.index;
+			})
+
+			// update graphic based on step
+			var alist = document.getElementsByClassName("decade decade-tk-national");
+			for(var idx = 0; idx < alist.length; idx ++){
+                var mya = alist[idx];
+                mya.style.fontSize = "20px";
+                mya.style.fontWeight = "700";
+
+            }
+			dic[response.index].style = "font-size:30px;font-weight:900;";
+		}
+
+		function setupStickyfill() {
+			d3.selectAll('.sticky').each(function () {
+				Stickyfill.add(this);
+			});
+		}
+
+		function init() {
+			setupStickyfill();
+
+			// 1. force a resize on load to ensure proper dimensions are sent to scrollama
+			handleResize();
+
+			// 2. setup the scroller passing options
+			// 		this will also initialize trigger observations
+			// 3. bind scrollama event handlers (this can be chained like below)
+			scroller.setup({
+				step: '#scrolly article .step',
+				offset: 0.33,
+				debug: false,
+			})
+				.onStepEnter(handleStepEnter)
+
+
+			// setup resize event
+			window.addEventListener('resize', handleResize);
+		}
+
+		// kick things off
+		init();
+	</script>
+</body>
+
+</html>
